@@ -2,6 +2,8 @@
 
 A simple Facebook clone built with **Next.js**, focused on recreating the core social media experience with a clean and responsive UI.
 
+**Live Demo:** https://facebook-clone-as.vercel.app/
+
 ## Features
 
 - Google authentication
