@@ -33,7 +33,7 @@ A simple Facebook clone built with **Next.js**, focused on recreating the core s
 Clone the repository:
 
 ```bash
-git clone https://github.com/your-username/facebook-clone.git
+git clone https://github.com/abolfazllsadri/facebook-clone.git
 cd facebook-clone
 ```
 
