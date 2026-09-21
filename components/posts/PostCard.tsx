@@ -1,5 +1,6 @@
 import PostActions from "@/components/posts/PostActions";
 import PostHeader from "@/components/posts/PostHeader";
+import PostMenu from "@/components/posts/PostMenu";
 import type { Post, User } from "@/lib/types";
 import Image from "next/image";
 
@@ -14,8 +15,12 @@ export default function PostCard({ post, user }: PostCardProps) {
   return (
     <article
       id={`post-${id}`}
-      className="w-full max-w-full rounded-xl bg-white shadow-sm"
+      className="relative w-full max-w-full rounded-xl bg-white shadow-sm"
     >
+      <div className="absolute top-2 right-2 z-50">
+        <PostMenu postId={id} />
+      </div>
+
       <PostHeader user={user} createdAt={createdAt} />
 
       <div className="px-4 pb-4">

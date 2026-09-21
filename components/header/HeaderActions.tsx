@@ -12,6 +12,7 @@ import {
 import Tooltip from "@/components/Tooltip";
 import Avatar from "@/components/Avatar";
 import type { User } from "@/lib/types";
+import ProfileDropdown from "@/components/header/ProfileDropdown";
 
 function HeaderActions({ user }: { user: User }) {
   const pathname = usePathname();
@@ -53,11 +54,7 @@ function HeaderActions({ user }: { user: User }) {
         </button>
       </Tooltip>
 
-      <Tooltip content="Account">
-        <Link href="/profile" onClick={() => setActive("account")}>
-          <Avatar user={user} showChevron />
-        </Link>
-      </Tooltip>
+      <ProfileDropdown user={user} />
     </div>
   );
 }

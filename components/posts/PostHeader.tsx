@@ -2,10 +2,7 @@ import Avatar from "@/components/Avatar";
 import Tooltip from "@/components/Tooltip";
 import type { User } from "@/lib/types";
 import { formatFullDate, formatPostTime } from "@/lib/utils";
-import {
-  EllipsisHorizontalIcon as DotsIcon,
-  GlobeAltIcon as EarthIcon,
-} from "@heroicons/react/24/outline";
+import { GlobeAltIcon as EarthIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 
 type PostHeaderProps = {
@@ -46,10 +43,6 @@ export default function PostHeader({ user, createdAt }: PostHeaderProps) {
           </div>
         </div>
       </div>
-
-      <button className="cursor-pointer rounded-full p-1.5 hover:bg-gray-100">
-        <DotsIcon className="h-6.5 w-6.5 stroke-2 text-gray-600" />
-      </button>
     </div>
   );
 }

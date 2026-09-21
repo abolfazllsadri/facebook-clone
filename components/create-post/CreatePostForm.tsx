@@ -4,6 +4,7 @@ import { type SubmitEvent, useState, useTransition } from "react";
 import Image from "next/image";
 import { XMarkIcon as CloseIcon } from "@heroicons/react/24/outline";
 
+import { useRouter } from "next/navigation";
 import { createPost } from "@/actions/post";
 import UserInfo from "@/components/UserInfo";
 import EmojiPicker from "@/components/create-post/EmojiPicker";
@@ -21,6 +22,7 @@ export default function CreatePostForm({ user, onClose }: CreatePostFormProps) {
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
+  const router = useRouter();
 
   const username = user?.name.split(" ").at(0);
 
@@ -54,6 +56,8 @@ export default function CreatePostForm({ user, onClose }: CreatePostFormProps) {
           setContent("");
           removeImage();
           onClose();
+
+          router.refresh();
         }
       } catch (error: unknown) {
         console.error("Failed to create post:", error);
@@ -129,7 +133,7 @@ export default function CreatePostForm({ user, onClose }: CreatePostFormProps) {
             disabled={(!content.trim() && !imageFile) || isPending}
             className="cursor-pointer rounded-lg bg-blue-600 p-1.75 text-[15px] font-semibold text-white transition hover:brightness-95 active:scale-[0.98] disabled:scale-100 disabled:cursor-not-allowed disabled:bg-gray-200 disabled:text-black/20 disabled:brightness-100"
           >
-            Post
+            {isPending ? "Posting..." : "Post"}
           </button>
         </footer>
       </form>

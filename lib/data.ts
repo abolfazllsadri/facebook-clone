@@ -16,7 +16,6 @@ import {
   PlayCircleIcon as PlayCircleSolid,
   UserGroupIcon as UserGroupSolid,
   UsersIcon as UsersSolid,
-  Squares2X2Icon as Squares2X2Solid,
 } from "@heroicons/react/24/solid";
 import {
   PlayCircleIcon as PlayCircleOutline,
@@ -24,7 +23,6 @@ import {
   UsersIcon as UsersOutline,
   HomeIcon as HomeOutline,
   HomeIcon,
-  Squares2X2Icon,
 } from "@heroicons/react/24/outline";
 
 type Contact = {
@@ -91,11 +89,6 @@ export const mobileNavItems = [
     label: "Groups",
     href: "/groups",
     icons: { solid: UserGroupSolid, outline: UserGroupIcon },
-  },
-  {
-    label: "Menu",
-    href: null,
-    icons: { solid: Squares2X2Solid, outline: Squares2X2Icon },
   },
 ] as const;
 

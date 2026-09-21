@@ -21,7 +21,7 @@ function Tooltip({
   fontSize = "text-xs",
 }: TooltipProps) {
   return (
-    <div className="group relative z-200 inline-flex" aria-label={content}>
+    <div className="group relative z-200 hidden sm:flex" aria-label={content}>
       {children}
       <p
         className={`pointer-events-none absolute rounded-xl bg-black/85 px-3 py-2 ${fontSize} font-normal whitespace-nowrap text-gray-50 opacity-0 transition delay-150 duration-150 group-hover:opacity-100 ${positionClasses[position]}`}

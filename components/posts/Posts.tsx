@@ -1,5 +1,6 @@
 import { getPosts } from "@/actions/post";
 import PostCard from "@/components/posts/PostCard";
+import ScrollToPost from "@/components/posts/ScrollToPost";
 import type { User } from "@/lib/types";
 
 export default async function Posts({ user }: { user: User }) {
@@ -13,10 +14,14 @@ export default async function Posts({ user }: { user: User }) {
     );
 
   return (
-    <div className="w-full max-w-full space-y-4">
-      {posts?.map((post) => (
-        <PostCard key={post.id} post={post} user={user} />
-      ))}
-    </div>
+    <>
+      <ScrollToPost />
+
+      <div className="w-full max-w-full space-y-4">
+        {posts?.map((post) => (
+          <PostCard key={post.id} post={post} user={user} />
+        ))}
+      </div>
+    </>
   );
 }

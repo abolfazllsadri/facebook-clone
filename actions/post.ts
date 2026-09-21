@@ -5,38 +5,7 @@ import { InputFile } from "node-appwrite/file";
 import { ID } from "node-appwrite";
 import { auth } from "@/auth";
 import type { Post } from "@/lib/types";
-
-export async function getPosts(): Promise<{
-  success: boolean;
-  error?: string;
-  posts: Post[];
-}> {
-  try {
-    const response = await tablesDB.listRows({
-      databaseId: process.env.APPWRITE_DATABASE_ID!,
-      tableId: process.env.APPWRITE_POSTS_TABLE_ID!,
-    });
-
-    return {
-      success: true,
-      posts: response.rows.map((post) => ({
-        id: post.$id,
-        userId: post.userId,
-        content: post.content,
-        imageId: post.imageId,
-        createdAt: post.$createdAt,
-      })),
-    };
-  } catch (error) {
-    console.error(error);
-
-    return {
-      success: false,
-      posts: [],
-      error: "Failed to fetch posts",
-    };
-  }
-}
+import { revalidatePath } from "next/cache";
 
 export async function createPost(formData: FormData) {
   const session = await auth();
@@ -75,6 +44,8 @@ export async function createPost(formData: FormData) {
     },
   });
 
+  revalidatePath("/");
+
   return {
     success: true,
     post: {
@@ -85,4 +56,61 @@ export async function createPost(formData: FormData) {
       createdAt: post.$createdAt,
     } satisfies Post,
   };
+}
+
+export async function deletePost(postId: string) {
+  const session = await auth();
+
+  if (!session?.user?.id) throw new Error("Unauthorized");
+
+  const post = await tablesDB.getRow({
+    databaseId: process.env.APPWRITE_DATABASE_ID!,
+    tableId: process.env.APPWRITE_POSTS_TABLE_ID!,
+    rowId: postId,
+  });
+
+  await tablesDB.deleteRow({
+    databaseId: process.env.APPWRITE_DATABASE_ID!,
+    tableId: process.env.APPWRITE_POSTS_TABLE_ID!,
+    rowId: postId,
+  });
+
+  if (post.imageId) {
+    await storage.deleteFile({
+      bucketId: process.env.APPWRITE_POST_IMAGES_BUCKET_ID!,
+      fileId: post.imageId,
+    });
+  }
+}
+
+export async function getPosts(): Promise<{
+  success: boolean;
+  error?: string;
+  posts: Post[];
+}> {
+  try {
+    const response = await tablesDB.listRows({
+      databaseId: process.env.APPWRITE_DATABASE_ID!,
+      tableId: process.env.APPWRITE_POSTS_TABLE_ID!,
+    });
+
+    return {
+      success: true,
+      posts: response.rows.map((post) => ({
+        id: post.$id,
+        userId: post.userId,
+        content: post.content,
+        imageId: post.imageId,
+        createdAt: post.$createdAt,
+      })),
+    };
+  } catch (error) {
+    console.error(error);
+
+    return {
+      success: false,
+      posts: [],
+      error: "Failed to fetch posts",
+    };
+  }
 }

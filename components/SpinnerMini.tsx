@@ -3,7 +3,7 @@ export default function SpinnerMini() {
     <div role="status" className="flex flex-col items-center">
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        className="size-8 animate-[spin_0.8s_linear_infinite] fill-blue-600"
+        className="size-8 animate-[spin_0.8s_linear_infinite] fill-blue-500"
         viewBox="0 0 24 24"
         aria-hidden="true"
       >

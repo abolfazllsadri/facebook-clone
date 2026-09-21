@@ -7,6 +7,7 @@ type AvatarProps = {
   user: User;
   size?: "sm" | "md" | "lg";
   showChevron?: boolean;
+  isOpen?: boolean;
 };
 
 const sizes = {
@@ -27,15 +28,17 @@ const sizes = {
   },
 } as const;
 
-function Avatar({ user, showChevron, size = "md" }: AvatarProps) {
+function Avatar({ user, showChevron, size = "md", isOpen }: AvatarProps) {
   const profile = user?.image ?? defaultUser;
   const config = sizes[size];
 
   const avatarClasses = `relative ${config.avatarClass} cursor-pointer rounded-full transition active:scale-[0.96]`;
-  const iconClasses = `absolute -right-0.5 -bottom-0.5 z-50 ${config.iconClass} rounded-full border-3 border-white bg-gray-200 stroke-3`;
+  const iconClasses = `absolute -right-0.5 -bottom-0.5 z-50 ${config.iconClass} rounded-full border-3 border-white bg-gray-200 stroke-3 transition-transform ${
+    isOpen ? "rotate-180" : ""
+  }`;
 
   return (
-    <button className={avatarClasses}>
+    <div className={avatarClasses}>
       <Image
         fill
         src={profile}
@@ -45,7 +48,7 @@ function Avatar({ user, showChevron, size = "md" }: AvatarProps) {
       />
 
       {showChevron && <ChevronDownIcon className={iconClasses} />}
-    </button>
+    </div>
   );
 }
 

@@ -1,22 +1,21 @@
 import Image from "next/image";
-import spinner from "@/public/spinner.gif";
 
 export default function Loading() {
   return (
-    <div
-      aria-label="Loading..."
-      role="status"
-      className="shadow-facebook fixed top-20 left-[48%] z-1000 flex h-14 w-14 items-center justify-center rounded-full bg-white select-none"
-    >
-      <div className="h-8 w-8">
-        <Image
-          src={spinner}
-          width={32}
-          height={32}
-          alt="Loading"
-          referrerPolicy="origin-when-cross-origin"
-          unoptimized
-        />
+    <div className="flex min-h-dvh w-full items-center justify-center bg-gray-100">
+      <div className="relative h-12 w-12">
+        <div className="absolute inset-0 animate-spin rounded-full border-4 border-gray-300 border-t-blue-500" />
+
+        <div className="absolute inset-2 flex items-center justify-center rounded-full bg-white">
+          <Image
+            src="/logo.svg"
+            width={48}
+            height={48}
+            alt="Facebook logo"
+            className="h-full w-full object-contain"
+            loading="eager"
+          />
+        </div>
       </div>
     </div>
   );

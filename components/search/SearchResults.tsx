@@ -1,8 +1,11 @@
+"use client";
+
 import SpinnerMini from "@/components/SpinnerMini";
 import type { SearchPost } from "@/lib/types";
 import { formatPostTime } from "@/lib/utils";
 import { MagnifyingGlassIcon as SearchIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 type SearchResultsProps = {
   query: string;
@@ -17,17 +20,11 @@ export default function SearchResults({
   isLoading,
   onClose,
 }: SearchResultsProps) {
+  const router = useRouter();
+
   function handlePostClick(id: string) {
     onClose();
-
-    const postEl = document.getElementById(`post-${id}`);
-
-    setTimeout(() => {
-      postEl?.scrollIntoView({
-        behavior: "smooth",
-        block: "center",
-      });
-    }, 0);
+    router.push(`/?post=${id}`);
   }
 
   return (
