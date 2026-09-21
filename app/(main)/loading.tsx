@@ -1,6 +1,6 @@
 export default function Loading() {
   return (
-    <div className="space-y-4">
+    <div className="space-y-4 py-6">
       {[1, 2, 3].map((item) => (
         <div key={item} className="rounded-xl bg-white p-4 shadow-sm">
           <div className="mb-4 flex items-center gap-3">
